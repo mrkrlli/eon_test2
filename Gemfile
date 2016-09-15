@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'devise', '~> 4.2'
+gem 'devise_invitable', '~> 1.7.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
