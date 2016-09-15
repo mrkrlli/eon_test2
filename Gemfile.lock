@@ -97,6 +97,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise_invitable (1.7.0)
+      actionmailer (>= 4.0.0)
+      devise (>= 4.0.0)
     diff-lcs (1.2.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -265,6 +268,7 @@ DEPENDENCIES
   capybara-webkit (~> 1.11.1)
   coffee-rails (~> 4.2)
   devise (~> 4.2)
+  devise_invitable (~> 1.7.0)
   dotenv-rails (~> 2.1.1)
   factory_girl_rails (~> 4.7.0)
   inherited_resources!
