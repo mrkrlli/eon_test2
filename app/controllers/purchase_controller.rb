@@ -3,6 +3,10 @@ class PurchaseController < ApplicationController
 
   end
 
+  def subscription_success
+
+  end
+
   def process_subscription
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 
@@ -11,5 +15,7 @@ class PurchaseController < ApplicationController
       :plan => "test_plan",
       :email => params[:stripeEmail]
     )
+
+    redirect_to purchase_success_path
   end
 end

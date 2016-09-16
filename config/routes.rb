@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   authenticate :user do
     get "/purchase", to: "purchase#subscribe", as: "purchase"
     post "/purchase", to: "purchase#process_subscription", as: "purchase_process"
+    get "/purchase_success", to: "purchase#subscription_success", as: "purchase_success"
   end
 end
