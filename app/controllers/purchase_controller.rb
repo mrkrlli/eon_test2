@@ -10,11 +10,13 @@ class PurchaseController < ApplicationController
   def process_subscription
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 
-    Stripe::Customer.create(
+    customer = Stripe::Customer.create(
       :source => params[:stripeToken], # obtained from Stripe.js
       :plan => "test_plan",
       :email => params[:stripeEmail]
     )
+
+    current_user.update_attributes(stripe_customer_id: customer.id)
 
     redirect_to purchase_success_path
   end
