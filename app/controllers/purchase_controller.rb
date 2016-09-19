@@ -16,7 +16,8 @@ class PurchaseController < ApplicationController
       :email => params[:stripeEmail]
     )
 
-    current_user.update_attributes(stripe_customer_id: customer.id)
+    current_user.update_attributes(stripe_customer_id: customer.id,
+                                   subscription: true)
 
     redirect_to purchase_success_path
   end

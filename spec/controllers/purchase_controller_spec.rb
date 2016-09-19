@@ -53,12 +53,25 @@ describe PurchaseController do
       params = {stripeToken: token, stripeEmail: user_email}
 
       post :process_subscription, params: params
-      expect(subject.current_user).to_not eq(nil)
 
       customers = @client.get_server_data(:customers)
       customer_id = customers["test_cus_3"][:id]
       user = User.where(email: user_email).first
       expect(user.stripe_customer_id).to eq(customer_id)
+    end
+
+    it 'sets subscription flag to true' do
+      login_user
+      user_email = "testuser@example.com"
+      plan_id = 'test_plan'
+      plan = stripe_helper.create_plan(:id => plan_id, :amount => 1000)
+      token = stripe_helper.generate_card_token()
+      params = {stripeToken: token, stripeEmail: user_email}
+
+      post :process_subscription, params: params
+
+      user = User.where(email: user_email).first
+      expect(user.subscription).to eq(true)
     end
 
     def login_user
