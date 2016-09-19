@@ -1,5 +1,28 @@
 require 'rails_helper'
-require 'time'
+
+describe "User goes to purchase page", js:true do
+  it "should see user login first" do
+    visit purchase_path
+
+    expect(page.current_path).to eq new_user_session_path
+  end
+
+  it "should see pay with card button on purchase page after logging in" do
+    user = create(:user,
+                   email: "testuser@example.com",
+                   password: "password",
+                   password_confirmation: "password")
+    visit purchase_path
+
+    fill_in 'Email', with: "testuser@example.com"
+    fill_in 'Password', with: "password"
+    click_button 'Log in'
+
+    expect(page.current_path).to eq purchase_path
+    expect(page).to have_css('.stripe-button-el', text: "Pay with Card")
+  end
+end
+
 #
 # describe "User makes a purchase", js: true do
 #   before (:each) do
@@ -39,26 +62,3 @@ require 'time'
 #     end
 #   end
 # end
-
-describe "User goes to purchase page", js:true do
-  it "should see user login first" do
-    visit purchase_path
-
-    expect(page.current_path).to eq new_user_session_path
-  end
-
-  it "should see pay with card button on purchase page after logging in" do
-    user = create(:user,
-                   email: "testuser@example.com",
-                   password: "password",
-                   password_confirmation: "password")
-    visit purchase_path
-
-    fill_in 'Email', with: "testuser@example.com"
-    fill_in 'Password', with: "password"
-    click_button 'Log in'
-
-    expect(page.current_path).to eq purchase_path
-    expect(page).to have_css('.stripe-button-el', text: "Pay with Card")
-  end
-end

@@ -37,6 +37,8 @@ end
 group :test do
   gem "capybara-webkit", '~> 1.11.1'
   gem "database_cleaner", '~> 1.5.3'
+  gem "stripe-ruby-mock", '~> 2.3.1'
+  gem "thin", '~> 1.7.0'
   # gem "formulaic"
   # gem "launchy"
   gem "shoulda-matchers", '~> 3.1.1'
