@@ -1,3 +1,5 @@
+require 'date'
+
 class PurchaseController < ApplicationController
   def subscribe
 
@@ -17,8 +19,13 @@ class PurchaseController < ApplicationController
     )
 
     current_user.update_attributes(stripe_customer_id: customer.id,
-                                   subscription: true)
+                                   subscription: true,
+                                   active_until: Date.today + 1.month)
 
     redirect_to purchase_success_path
+  end
+
+  def process_stripe_webhook
+    head :ok
   end
 end

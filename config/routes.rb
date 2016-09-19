@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     post "/purchase", to: "purchase#process_subscription", as: "purchase_process"
     get "/purchase_success", to: "purchase#subscription_success", as: "purchase_success"
   end
+
+  post "/process_stripe_webhook",
+    to: "purchase#process_stripe_webhook",
+    as: "process_stripe_webhook"
 end
