@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'stripe_mock'
 require 'pp'
+require 'date'
 
 describe PurchaseController do
   describe '#process_subscription' do
@@ -72,6 +73,20 @@ describe PurchaseController do
 
       user = User.where(email: user_email).first
       expect(user.subscription).to eq(true)
+    end
+
+    it 'sets active_until to 1 month from current date' do
+      login_user
+      user_email = "testuser@example.com"
+      plan_id = 'test_plan'
+      plan = stripe_helper.create_plan(:id => plan_id, :amount => 1000)
+      token = stripe_helper.generate_card_token()
+      params = {stripeToken: token, stripeEmail: user_email}
+
+      post :process_subscription, params: params
+
+      user = User.where(email: user_email).first
+      expect(user.active_until).to eq(Date.today + 1.month)
     end
 
     def login_user
